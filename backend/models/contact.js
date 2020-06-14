@@ -8,7 +8,9 @@ const contactSchema = new mongoose.Schema({
   email: {
     required: true,
     unique: true,
-    validate: (val) => validator.isEmail(val),
+    validate: {
+      validator: (value) => validator.isEmail(value),
+    },
   },
   phone: {
     required: true,

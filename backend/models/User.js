@@ -8,11 +8,17 @@ const userSchema = new mongoose.Schema({
   email: {
     required: true,
     unique: true,
-    validate: (val) => validator.isEmail(val),
+    type: String,
+    validate: {
+      validator: (value) => validator.isEmail(value),
+    },
   },
   password: {
     required: true,
     minlength: 6,
+    type: String,
+  },
+  token: {
     type: String,
   },
   contacts: [
