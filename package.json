@@ -1,0 +1,25 @@
+{
+  "name": "contacts-keeper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server/app.js",
+    "backend": "nodemon backend/server/app.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run backend\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "contacts-keeper-MERN"
+  },
+  "author": "Ishan Varshney",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.2.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.18"
+  }
+}
