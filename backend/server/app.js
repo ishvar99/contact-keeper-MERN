@@ -1,6 +1,7 @@
-require('dotenv');
+require('dotenv').config();
 const express = require('express');
 const app = express();
+require('../database/db');
 const PORT = 5000;
 
 app.get('/', (req, res) => {
