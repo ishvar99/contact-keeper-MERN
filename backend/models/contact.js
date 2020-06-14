@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-const userSchema = new mongoose.Schema({
+const contactSchema = new mongoose.Schema({
   name: {
     required: true,
     type: String,
@@ -10,17 +10,14 @@ const userSchema = new mongoose.Schema({
     unique: true,
     validate: (val) => validator.isEmail(val),
   },
-  password: {
+  phone: {
     required: true,
-    minlength: 6,
     type: String,
   },
-  contacts: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Contact',
-    },
-  ],
+  type: {
+    required: true,
+    type: String,
+  },
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Contact', contactSchema);

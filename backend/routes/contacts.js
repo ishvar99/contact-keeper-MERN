@@ -1,12 +1,12 @@
 const express = require('express');
-
+const User = reqiure('../models/user.js');
 const router = express.Router();
 
 // @route  POST api/contacts
 // @desc   display all contacts for a user
 // @access PRIVATE
 router.get('/', (req, res) => {
-  res.send('display all contacts');
+  User.find();
 });
 
 // @route  POST api/contacts
