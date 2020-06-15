@@ -18,12 +18,10 @@ const userSchema = new mongoose.Schema({
     minlength: 6,
     type: String,
   },
-  contacts: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Contact',
-    },
-  ],
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model('User', userSchema);

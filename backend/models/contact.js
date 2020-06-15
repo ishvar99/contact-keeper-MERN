@@ -1,11 +1,16 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const contactSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
   name: {
     required: true,
     type: String,
   },
   email: {
+    type: String,
     required: true,
     unique: true,
     validate: {

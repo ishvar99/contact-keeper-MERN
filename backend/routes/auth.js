@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
     let salt = await bcrypt.genSalt(10);
     let hash = await bcrypt.hash(password, salt);
     user = await User.create({ name, email, password });
-    let token = jwt.sign({ id: user._id }, secret);
+    let token = jwt.sign({ id: user._id }, secret, { expiresIn: '2h' });
     user.password = hash;
     await user.save();
     res.json({ token });
@@ -45,7 +45,7 @@ router.post('/login', async (req, res) => {
       return res.json({ err: 'invalid credentials' });
     }
     let response = await bcrypt.compare(password, user.password);
-    let token = jwt.sign({ id: user._id }, secret);
+    let token = jwt.sign({ id: user._id }, secret, { expiresIn: '2h' });
     if (response) {
       res.status(200).json({ token });
     } else {
