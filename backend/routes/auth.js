@@ -2,7 +2,7 @@ const express = require('express');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const _ = require('lodash');
+const auth = require('../middlewares/auth');
 const router = express.Router();
 const secret = process.env.secret;
 // @route  POST api/auth
@@ -24,14 +24,11 @@ router.post('/register', async (req, res) => {
     let hash = await bcrypt.hash(password, salt);
     user = await User.create({ name, email, password });
     let token = jwt.sign({ id: user._id }, secret);
-    user.token = token;
     user.password = hash;
     await user.save();
-    let alteredUser = _.pick(user, ['_id', 'name', 'email', 'token']);
-    res.setHeader('x-auth', token);
-    res.json({ user: alteredUser });
+    res.json({ token });
   } catch (err) {
-    return res.json({ err: err });
+    return res.status(500).json({ err: 'Server Error' });
   }
 });
 
@@ -40,25 +37,34 @@ router.post('/register', async (req, res) => {
 // @access PUBLIC
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  let token = req.header('x-auth');
-  let decoded = jwt.verify(token, secret);
-  let user = await User.findOne({ email });
-  if (!user) {
-    return res.json({ err: 'Invalid Email!' });
-  }
-  let response = await bcrypt.compare(password, user.password);
-  if (decoded.id == user._id && response) {
-    let alteredUser = _.pick(user, ['_id', 'name', 'email', 'token']);
-    res.status(200).json({ user: alteredUser });
-  } else {
-    res.status(422).json({ err: 'Invalid Password!' });
+  if (!email) return res.json({ err: 'email is required!' });
+  if (!password) return res.json({ err: 'password is required!' });
+  try {
+    let user = await User.findOne({ email });
+    if (!user) {
+      return res.json({ err: 'invalid credentials' });
+    }
+    let response = await bcrypt.compare(password, user.password);
+    let token = jwt.sign({ id: user._id }, secret);
+    if (response) {
+      res.status(200).json({ token });
+    } else {
+      res.status(422).json({ err: 'invalid credentials' });
+    }
+  } catch (err) {
+    res.status(500).json({ err: 'server error' });
   }
 });
 
 // @route  GET api/auth
 // @desc   get logged in user
 // @access PRIVATE
-router.get('/login', (req, res) => {
-  res.send('get a logged in user!');
+router.get('/login', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    res.json(user);
+  } catch (err) {
+    return res.json({ err: 'server error' });
+  }
 });
 module.exports = router;

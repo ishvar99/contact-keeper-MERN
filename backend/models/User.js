@@ -18,9 +18,6 @@ const userSchema = new mongoose.Schema({
     minlength: 6,
     type: String,
   },
-  token: {
-    type: String,
-  },
   contacts: [
     {
       type: mongoose.Schema.Types.ObjectId,
