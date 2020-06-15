@@ -12,13 +12,11 @@ const contactSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
     validate: {
       validator: (value) => validator.isEmail(value),
     },
   },
   phone: {
-    required: true,
     type: String,
   },
   type: {
