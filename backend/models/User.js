@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   email: {
-    required: [true, 'email is required'],
+    required: true,
     unique: true,
     type: String,
     validate: {
@@ -14,8 +14,8 @@ const userSchema = new mongoose.Schema({
     },
   },
   password: {
-    required: [true, 'password is required'],
-    minlength: [6, 'password should be minimum 6 characters'],
+    required: true,
+    minlength: 6,
     type: String,
   },
   token: {

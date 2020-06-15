@@ -8,48 +8,51 @@ const secret = process.env.secret;
 // @route  POST api/auth
 // @desc   register a user
 // @access PUBLIC
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
-  bcrypt.genSalt(10, function (err, salt) {
-    bcrypt.hash(password, salt, function (err, hash) {
-      User.create({ name, email, password }, (err, user) => {
-        if (!err) {
-          var token = jwt.sign({ id: user._id }, secret);
-          user.token = token;
-          user.password = hash;
-          user.save();
-          const alteredUser = _.pick(user, ['_id', 'name', 'email', 'token']);
-          res.setHeader('x-auth', token);
-          res.json({ user: alteredUser });
-        } else {
-          res.status(400).json({ err });
-        }
-      });
-    });
-  });
+  if (!name) return res.json({ err: 'name is required!' });
+  if (!email) return res.json({ err: 'email is required!' });
+  if (!password) return res.json({ err: 'password is required!' });
+  if (password.length < 6)
+    return res.json({ err: 'password should be minimum 6 characters' });
+  try {
+    let user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ err: 'email already exists' });
+    }
+    let salt = await bcrypt.genSalt(10);
+    let hash = await bcrypt.hash(password, salt);
+    user = await User.create({ name, email, password });
+    let token = jwt.sign({ id: user._id }, secret);
+    user.token = token;
+    user.password = hash;
+    await user.save();
+    let alteredUser = _.pick(user, ['_id', 'name', 'email', 'token']);
+    res.setHeader('x-auth', token);
+    res.json({ user: alteredUser });
+  } catch (err) {
+    return res.json({ err: err });
+  }
 });
 
 // @route  POST api/auth
 // @desc   login a user
 // @access PUBLIC
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  const token = req.header('x-auth');
-  const decoded = jwt.verify(token, secret);
-  User.findOne({ email: email }, (err, user) => {
-    if (!err) {
-      bcrypt.compare(password, user.password, function (err, response) {
-        if (decoded.id == user._id && response) {
-          const alteredUser = _.pick(user, ['_id', 'name', 'email', 'token']);
-          res.status(200).json({ user: alteredUser });
-        } else {
-          res.status(422).json({ err: 'Authentication Failed!' });
-        }
-      });
-    } else {
-      res.status(422).json({ err: 'Authentication Failed!' });
-    }
-  });
+  let token = req.header('x-auth');
+  let decoded = jwt.verify(token, secret);
+  let user = await User.findOne({ email });
+  if (!user) {
+    return res.json({ err: 'Invalid Email!' });
+  }
+  let response = await bcrypt.compare(password, user.password);
+  if (decoded.id == user._id && response) {
+    let alteredUser = _.pick(user, ['_id', 'name', 'email', 'token']);
+    res.status(200).json({ user: alteredUser });
+  } else {
+    res.status(422).json({ err: 'Invalid Password!' });
+  }
 });
 
 // @route  GET api/auth
