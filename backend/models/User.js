@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const userSchema = new mongoose.Schema({
   name: {
-    required: true,
+    required: [true, 'name is required'],
     type: String,
   },
   email: {
-    required: true,
+    required: [true, 'email is required'],
     unique: true,
     type: String,
     validate: {
@@ -14,8 +14,8 @@ const userSchema = new mongoose.Schema({
     },
   },
   password: {
-    required: true,
-    minlength: 6,
+    required: [true, 'password is required'],
+    minlength: [6, 'password should be minimum 6 characters'],
     type: String,
   },
   token: {
