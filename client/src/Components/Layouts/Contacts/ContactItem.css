@@ -1,0 +1,20 @@
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  padding-left: 20px;
+  height: 200px;
+  background-color: beige;
+  border: 1px solid gainsboro;
+}
+.btn {
+  margin: 2px;
+  color: white;
+}
+.black {
+  background-color: black;
+}
+
+.red {
+  background-color: maroon;
+}
