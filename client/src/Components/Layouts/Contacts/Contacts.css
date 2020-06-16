@@ -1,3 +1,7 @@
+.main-container {
+  display: flex;
+}
+
 .info {
   display: flex;
   flex-direction: column;

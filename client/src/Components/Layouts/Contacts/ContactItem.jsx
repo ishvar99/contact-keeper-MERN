@@ -1,5 +1,5 @@
 import React from 'react';
-import './ContactItem.css';
+import './Contacts.css';
 export const ContactItem = ({ contact }) => {
   return (
     <div className='contact-card'>
