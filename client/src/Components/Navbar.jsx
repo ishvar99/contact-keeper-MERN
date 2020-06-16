@@ -42,7 +42,7 @@ Navbar.propTypes = {
   icon: PropTypes.string,
 };
 Navbar.defaultProps = {
-  title: 'Easy Contacts',
+  title: 'Smart Contacts',
   icon: 'fas fa-id-card-alt',
 };
 export default Navbar;
