@@ -11,7 +11,7 @@ const ContactForm = () => {
     const phone = document.getElementById('phone').value;
     const type = document.querySelector('input[name="type"]:checked').value;
     const obj = { name, email, phone, type };
-    context.addContact(obj);
+    current ? context.updateContact(obj, current.id) : context.addContact(obj);
     document.getElementById('name').value = '';
     document.getElementById('email').value = '';
     document.getElementById('phone').value = '';
@@ -23,7 +23,7 @@ const ContactForm = () => {
       <form onSubmit={onSubmit}>
         <input
           className='form-field'
-          value={current ? current.name : ''}
+          defaultValue={current ? current.name : ''}
           required
           placeholder='Name'
           id='name'
@@ -31,7 +31,7 @@ const ContactForm = () => {
         />
         <input
           className='form-field'
-          value={current ? current.email : ''}
+          defaultValue={current ? current.email : ''}
           required
           id='email'
           placeholder='Email'
@@ -39,7 +39,7 @@ const ContactForm = () => {
         />
         <input
           className='form-field'
-          value={current ? current.phone : ''}
+          defaultValue={current ? current.phone : ''}
           required
           placeholder='Phone'
           id='phone'
