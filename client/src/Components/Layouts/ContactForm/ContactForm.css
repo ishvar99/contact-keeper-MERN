@@ -1,0 +1,32 @@
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  margin: 25px;
+  height: 75vh;
+}
+.form-header {
+  color: darkblue;
+  font-weight: bold;
+  text-align: center;
+}
+
+.form-field {
+  margin: 10px;
+}
+.form-type {
+  display: flex;
+  justify-content: space-between;
+}
+.form-type input {
+  margin: 5px 10px;
+}
+.form-btn {
+  background-color: darkblue;
+  outline: none;
+  border: none;
+  margin-top: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+}

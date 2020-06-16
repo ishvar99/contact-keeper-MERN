@@ -8,7 +8,7 @@ const Contacts = () => {
   const { contacts } = context;
   return (
     <div className='main-container'>
-      <div>
+      <div className='contacts-form'>
         <ContactForm />
       </div>
       <div className='main'>

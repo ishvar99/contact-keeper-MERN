@@ -1,7 +1,13 @@
 .main-container {
   display: flex;
+  margin: 0 50px;
+  justify-content: space-evenly;
+  width: 100%;
 }
-
+.contacts-form {
+  /* flex-grow: 1; */
+  width: 30%;
+}
 .info {
   display: flex;
   flex-direction: column;
@@ -12,26 +18,15 @@
   padding: 20px;
   margin: 10px;
   height: 200px;
-  width: 500px;
+  width: 400px;
   background-color: beige;
   border: 1px solid gainsboro;
   justify-content: space-between;
 }
-
-@media (max-width: 800px) {
-  .contact-card {
-    width: 350px;
-  }
-  .main {
-    margin-right: 10px !important;
-  }
-}
-
 .main {
   display: flex;
   flex-direction: column;
   float: right;
-  margin: 20px;
 }
 .btn {
   margin: 2px;
@@ -49,7 +44,7 @@
   background-color: maroon;
 }
 .blue {
-  background-color: blue;
+  background-color: darkblue;
 }
 .green {
   background-color: darkgreen;
