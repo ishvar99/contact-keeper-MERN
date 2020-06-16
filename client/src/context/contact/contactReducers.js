@@ -1,7 +1,12 @@
-import { ADD_CONTACT, DELETE_CONTACT } from '../types';
+import {
+  ADD_CONTACT,
+  DELETE_CONTACT,
+  UPDATE_CONTACT,
+  SET_CURRENT,
+  CLEAR_CURRENT,
+} from '../types';
 
 export default (state, action) => {
-  console.log(state);
   switch (action.type) {
     case ADD_CONTACT:
       return {
@@ -12,8 +17,18 @@ export default (state, action) => {
       return {
         ...state,
         contacts: state.contacts.filter((contact) => {
-          return contact.id === action.payload;
+          return contact.id !== action.payload;
         }),
+      };
+    case SET_CURRENT:
+      return {
+        ...state,
+        current: action.payload,
+      };
+    case CLEAR_CURRENT:
+      return {
+        ...state,
+        current: null,
       };
     default:
       return state;

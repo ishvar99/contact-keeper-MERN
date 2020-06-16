@@ -3,6 +3,13 @@ import './Contacts.css';
 import contactContext from '../../../context/contact/contactContext';
 export const ContactItem = ({ contact }) => {
   const context = useContext(contactContext);
+  const onDelete = () => {
+    context.deleteContact(contact.id);
+    context.clearCurrent();
+  };
+  const onEdit = () => {
+    context.setCurrent(contact);
+  };
   return (
     <div className='contact-card'>
       <div className='info'>
@@ -10,11 +17,10 @@ export const ContactItem = ({ contact }) => {
         <p>{contact.email}</p>
         <p>{contact.phone}</p>
         <div>
-          <button className='btn black'>Edit</button>
-          <button
-            // onClick={context.deleteContact(contact.id)}
-            className='btn red'
-          >
+          <button onClick={onEdit} className='btn black'>
+            Edit
+          </button>
+          <button onClick={onDelete} className='btn red'>
             Delete
           </button>
         </div>

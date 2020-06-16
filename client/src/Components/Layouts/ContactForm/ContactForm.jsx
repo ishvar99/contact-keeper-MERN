@@ -3,7 +3,7 @@ import './ContactForm.css';
 import contactContext from '../../../context/contact/contactContext';
 const ContactForm = () => {
   const context = useContext(contactContext);
-
+  const { current } = context;
   const onSubmit = (e) => {
     e.preventDefault();
     const name = document.getElementById('name').value;
@@ -12,6 +12,10 @@ const ContactForm = () => {
     const type = document.querySelector('input[name="type"]:checked').value;
     const obj = { name, email, phone, type };
     context.addContact(obj);
+    document.getElementById('name').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('phone').value = '';
+    document.querySelector('input[name="type"]').checked = true;
   };
   return (
     <div className='contact-form'>
@@ -19,6 +23,7 @@ const ContactForm = () => {
       <form onSubmit={onSubmit}>
         <input
           className='form-field'
+          value={current ? current.name : ''}
           required
           placeholder='Name'
           id='name'
@@ -26,6 +31,7 @@ const ContactForm = () => {
         />
         <input
           className='form-field'
+          value={current ? current.email : ''}
           required
           id='email'
           placeholder='Email'
@@ -33,6 +39,7 @@ const ContactForm = () => {
         />
         <input
           className='form-field'
+          value={current ? current.phone : ''}
           required
           placeholder='Phone'
           id='phone'
@@ -52,9 +59,9 @@ const ContactForm = () => {
           <div>
             <input
               id='personal'
+              checked={current ? current.type === 'personal' : true}
               type='radio'
               value='personal'
-              checked
               name='type'
             />
             <label for='personal'>Personal</label>
@@ -62,6 +69,7 @@ const ContactForm = () => {
           <div>
             <input
               id='professional'
+              checked={current ? current.type === 'professional' : false}
               type='radio'
               value='professional'
               name='type'
