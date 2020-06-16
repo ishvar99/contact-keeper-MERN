@@ -10,18 +10,21 @@ const ContactState = (props) => {
         name: 'Ishan',
         email: 'ishanvarshney99@gmail.com',
         phone: '9205818212',
+        type: 'professional',
       },
       {
         id: 2,
         name: 'Himanshi',
         email: 'himanshivarshney25@gmail.com',
         phone: '7982500254',
+        type: 'personal',
       },
       {
         id: 3,
         name: 'Mamta',
         email: 'mamtavarshney73@gmail.com',
         phone: '9958213187',
+        type: 'personal',
       },
     ],
   };

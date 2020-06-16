@@ -1,14 +1,40 @@
-.contact-card {
+.info {
   display: flex;
   flex-direction: column;
-  width: 400px;
-  padding-left: 20px;
+}
+.contact-card {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  margin: 10px;
   height: 200px;
+  width: 500px;
   background-color: beige;
   border: 1px solid gainsboro;
+  justify-content: space-between;
+}
+
+@media (max-width: 800px) {
+  .contact-card {
+    width: 350px;
+  }
+  .main {
+    margin-right: 10px !important;
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  float: right;
+  margin: 20px;
 }
 .btn {
   margin: 2px;
+  color: white;
+  border: none;
+}
+.btn:hover {
   color: white;
 }
 .black {
@@ -17,4 +43,10 @@
 
 .red {
   background-color: maroon;
+}
+.blue {
+  background-color: blue;
+}
+.green {
+  background-color: darkgreen;
 }
