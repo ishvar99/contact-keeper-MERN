@@ -30,11 +30,29 @@ const ContactState = (props) => {
     ],
   };
   const [state, dispatch] = useReducer(ContactReducer, initialState);
-  const addContact = (formData) => {
-    dispatch({ type: ADD_CONTACT });
+  const addContact = async (formData) => {
+    // const response = await axios.post(
+    //   '/api/contacts',
+    //   JSON.stringify(formData),
+    //   {
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'x-auth':
+    //         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZThlYWNmOWU2OGZhMmU5YzkyNTQxMSIsImlhdCI6MTU5MjMyMjc2OCwiZXhwIjoxNTkyMzI5OTY4fQ.hGB2PC7024e47qqKkMMH88CsvLm6hwb21wzCkOQZTPI',
+    //     },
+    //   }
+    // );
+    // console.log(response);
+    dispatch({ type: ADD_CONTACT, payload: formData });
+  };
+
+  const deleteContact = (id) => {
+    dispatch({ type: DELETE_CONTACT, payload: id });
   };
   return (
-    <ContactContext.Provider value={{ contacts: state.contacts, addContact }}>
+    <ContactContext.Provider
+      value={{ contacts: state.contacts, addContact, deleteContact }}
+    >
       {props.children}
     </ContactContext.Provider>
   );

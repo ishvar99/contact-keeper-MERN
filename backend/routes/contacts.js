@@ -17,6 +17,7 @@ router.get('/', auth, async (req, res) => {
 // @access PRIVATE
 router.post('/', auth, async (req, res) => {
   const { name, email, phone, type } = req.body;
+  console.log('response body', req.body);
   try {
     const contact = await Contact.create({ name, email, phone, type });
     contact.user = req.user;

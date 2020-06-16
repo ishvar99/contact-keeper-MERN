@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Contacts.css';
+import contactContext from '../../../context/contact/contactContext';
 export const ContactItem = ({ contact }) => {
+  const context = useContext(contactContext);
   return (
     <div className='contact-card'>
       <div className='info'>
@@ -9,7 +11,12 @@ export const ContactItem = ({ contact }) => {
         <p>{contact.phone}</p>
         <div>
           <button className='btn black'>Edit</button>
-          <button className='btn red'>Delete</button>
+          <button
+            // onClick={context.deleteContact(contact.id)}
+            className='btn red'
+          >
+            Delete
+          </button>
         </div>
       </div>
       <div>
