@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const uri = process.env.databaseUrl;
+const uri = 'mongodb://localhost/contacts-keeper' || process.env.databaseUrl;
 mongoose.connect(
   uri,
   { useNewUrlParser: true, useUnifiedTopology: true },

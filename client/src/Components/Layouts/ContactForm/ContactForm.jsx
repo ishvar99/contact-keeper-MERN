@@ -1,21 +1,37 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './ContactForm.css';
 import contactContext from '../../../context/contact/contactContext';
 const ContactForm = () => {
   const context = useContext(contactContext);
-  const { current } = context;
+  const { addContact, current, updateContact } = context;
+  useEffect(() => {
+    current
+      ? setContact(current)
+      : setContact({
+          name: '',
+          email: '',
+          phone: '',
+          type: 'personal',
+        });
+  }, [contactContext, current]);
+  const [contact, setContact] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    type: 'personal',
+  });
+  const { name, email, phone, type } = contact;
+  const onChange = (e) =>
+    setContact({ ...contact, [e.target.name]: e.target.value });
   const onSubmit = (e) => {
     e.preventDefault();
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
-    const type = document.querySelector('input[name="type"]:checked').value;
-    const obj = { name, email, phone, type };
-    current ? context.updateContact(obj, current.id) : context.addContact(obj);
-    document.getElementById('name').value = '';
-    document.getElementById('email').value = '';
-    document.getElementById('phone').value = '';
-    document.querySelector('input[name="type"]').checked = true;
+    current ? updateContact(contact, current.id) : addContact(contact);
+    setContact({
+      name: '',
+      email: '',
+      phone: '',
+      type: 'personal',
+    });
   };
   return (
     <div className='contact-form'>
@@ -23,27 +39,30 @@ const ContactForm = () => {
       <form onSubmit={onSubmit}>
         <input
           className='form-field'
-          defaultValue={current ? current.name : ''}
+          value={name}
           required
           placeholder='Name'
-          id='name'
+          onChange={onChange}
+          name='name'
           type='text'
         />
         <input
           className='form-field'
-          defaultValue={current ? current.email : ''}
+          value={email}
           required
-          id='email'
+          name='email'
           placeholder='Email'
           type='text'
+          onChange={onChange}
         />
         <input
           className='form-field'
-          defaultValue={current ? current.phone : ''}
+          value={phone}
           required
           placeholder='Phone'
-          id='phone'
+          name='phone'
           type='text'
+          onChange={onChange}
         />
         <label
           style={{
@@ -58,26 +77,28 @@ const ContactForm = () => {
         <div className='form-type'>
           <div>
             <input
-              id='personal'
-              checked={current ? current.type === 'personal' : true}
+              value='personal'
+              checked={type === 'personal' ? true : false}
               type='radio'
               value='personal'
+              onChange={onChange}
               name='type'
             />
             <label for='personal'>Personal</label>
           </div>
           <div>
             <input
-              id='professional'
-              checked={current ? current.type === 'professional' : false}
+              name='professional'
               type='radio'
+              checked={type === 'professional' ? true : false}
               value='professional'
+              onChange={onChange}
               name='type'
             />
             <label for='professional'>Professional</label>
           </div>
         </div>
-        <input type='submit' className='form-btn' />
+        <button className='form-btn'>{current ? 'Update' : 'Submit'}</button>
       </form>
     </div>
   );
