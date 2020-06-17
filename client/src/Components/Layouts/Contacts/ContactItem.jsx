@@ -26,11 +26,13 @@ export const ContactItem = ({ contact }) => {
         </div>
       </div>
       <div>
-        <button
-          className={'btn ' + (contact.type === 'personal' ? 'blue' : 'green')}
+        <div
+          className={
+            'badge ' + (contact.type === 'personal' ? 'blue' : 'green')
+          }
         >
           {contact.type.charAt(0).toUpperCase() + contact.type.slice(1)}
-        </button>
+        </div>
       </div>
     </div>
   );

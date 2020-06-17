@@ -1,24 +1,42 @@
 .main-container {
   display: flex;
-  margin: 0 50px;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-evenly;
   width: 100%;
 }
 .contacts-form {
-  /* flex-grow: 1; */
-  width: 35%;
+  height: 500px;
+  width: 40%;
 }
+@media only screen and (max-width: 992px) {
+  .contacts-form {
+    width: 90%;
+  }
+}
+@media only screen and (max-width: 550px) {
+  .contact-card {
+    width: 450px !important;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .contact-card {
+    width: 350px !important;
+  }
+}
+
 .info {
   display: flex;
   flex-direction: column;
 }
 .contact-card {
   display: flex;
+  border-radius: 10px;
   flex-direction: row;
   padding: 20px;
-  margin-top: 30px;
-  height: 200px;
-  width: 400px;
+  margin: 30px 0 10px 0;
+  height: 195px;
+  width: 500px;
   background-color: beige;
   border: 1px solid gainsboro;
   justify-content: space-between;
@@ -29,11 +47,17 @@
   float: right;
 }
 .btn {
-  margin: 2px;
+  margin-right: 10px;
   color: white;
   border: none;
 }
 .btn:hover {
+  color: white;
+}
+.badge {
+  padding: 10px;
+  font-size: 16px;
+  font-weight: normal;
   color: white;
 }
 .black {
