@@ -3,7 +3,7 @@ import './ContactForm.css';
 import contactContext from '../../../context/contact/contactContext';
 const ContactForm = () => {
   const context = useContext(contactContext);
-  const { addContact, current, updateContact } = context;
+  const { addContact, clearCurrent, current, updateContact } = context;
   useEffect(() => {
     current
       ? setContact(current)
@@ -32,6 +32,9 @@ const ContactForm = () => {
       phone: '',
       type: 'personal',
     });
+  };
+  const clearAll = () => {
+    clearCurrent();
   };
   return (
     <div className='contact-form'>
@@ -99,6 +102,11 @@ const ContactForm = () => {
           </div>
         </div>
         <button className='form-btn'>{current ? 'Update' : 'Submit'}</button>
+        {current && (
+          <button className='form-btn grey' onClick={clearAll}>
+            Clear
+          </button>
+        )}
       </form>
     </div>
   );
