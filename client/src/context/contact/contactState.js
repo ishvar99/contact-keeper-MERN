@@ -64,7 +64,6 @@ const ContactState = (props) => {
   };
   const updateContact = (formData, id) => {
     dispatch({ type: UPDATE_CONTACT, payload: { formData, id } });
-    dispatch({ type: CLEAR_CURRENT });
   };
   return (
     <ContactContext.Provider
