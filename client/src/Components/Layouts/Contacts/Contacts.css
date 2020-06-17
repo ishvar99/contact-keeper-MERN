@@ -1,16 +1,18 @@
 .main-container {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-evenly;
   width: 100%;
 }
 .contacts-form {
-  height: 500px;
+  min-width: 600px;
   width: 40%;
+  height: 500px;
 }
 @media only screen and (max-width: 992px) {
   .contacts-form {
+    min-width: 0;
     width: 90%;
   }
 }
@@ -35,9 +37,8 @@
   flex-direction: row;
   padding: 20px;
   margin: 30px 0 10px 0;
-  height: 195px;
   width: 500px;
-  background-color: beige;
+  background-color: #f4f4f4;
   border: 1px solid gainsboro;
   justify-content: space-between;
 }
@@ -55,13 +56,13 @@
   color: white;
 }
 .badge {
-  padding: 10px;
+  padding: 13px;
   font-size: 16px;
-  font-weight: normal;
+  font-weight: 600;
   color: white;
 }
 .black {
-  background-color: black;
+  background-color: #333333;
 }
 
 .red {

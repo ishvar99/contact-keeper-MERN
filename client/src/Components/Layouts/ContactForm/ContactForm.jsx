@@ -61,7 +61,6 @@ const ContactForm = () => {
         <input
           className='form-field'
           value={phone}
-          required
           placeholder='Phone'
           name='phone'
           type='text'

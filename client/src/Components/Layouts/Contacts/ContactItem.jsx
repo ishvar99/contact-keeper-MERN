@@ -13,9 +13,23 @@ export const ContactItem = ({ contact }) => {
   return (
     <div className='contact-card'>
       <div className='info'>
-        <p>{contact.name}</p>
-        <p>{contact.email}</p>
-        <p>{contact.phone}</p>
+        <p style={{ color: 'darkblue', fontSize: '24px', fontWeight: 'bold' }}>
+          {contact.name}
+        </p>
+        <p>
+          <i
+            style={{ marginRight: '3px' }}
+            className='fas fa-envelope-open'
+          ></i>
+          <span>{contact.email}</span>
+        </p>
+        {contact.phone && (
+          <p>
+            <i style={{ marginRight: '3px' }} className='fas fa-phone'></i>
+            <span>{contact.phone}</span>
+          </p>
+        )}
+
         <div>
           <button onClick={onEdit} className='btn black'>
             Edit
