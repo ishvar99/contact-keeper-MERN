@@ -26,6 +26,7 @@ router.post('/register', async (req, res) => {
     let token = jwt.sign({ id: user._id }, secret, { expiresIn: '2h' });
     user.password = hash;
     await user.save();
+    console.log(token);
     res.json({ token });
   } catch (err) {
     return res.status(500).json({ err: 'Server Error' });
