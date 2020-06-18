@@ -5,6 +5,7 @@ const ContactFilter = () => {
   const { filterContacts, filtered, clearFilter } = context;
   useEffect(() => {
     if (filtered && filtered.length == 0) {
+      document.getElementById('filter').value = '';
       clearFilter();
     }
   }, [filtered]);

@@ -3,7 +3,9 @@ import ContactContext from '../../../context/contact/contactContext';
 import ContactItem from './ContactItem';
 import ContactForm from '../ContactForm/ContactForm';
 import ContactFilter from './ContactFilter';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import './Contacts.css';
+import '../../../App.css';
 const Contacts = () => {
   const context = useContext(ContactContext);
   const { contacts, filtered } = context;
@@ -12,21 +14,45 @@ const Contacts = () => {
       <div className='contacts-form'>
         <ContactForm />
       </div>
+
       <div className='main'>
-        <ContactFilter />
-        {contacts.length > 0 ? (
-          filtered ? (
-            filtered.map((contact) => {
-              return <ContactItem key={contact.id} contact={contact} />;
-            })
+        {contacts.length > 0 ? <ContactFilter /> : null}
+        <TransitionGroup>
+          {contacts.length > 0 ? (
+            filtered ? (
+              filtered.map((contact) => (
+                <CSSTransition
+                  key={contact.id}
+                  timeout={700}
+                  classNames='animation'
+                >
+                  <ContactItem contact={contact} />
+                </CSSTransition>
+              ))
+            ) : (
+              contacts.map((contact) => (
+                <CSSTransition
+                  key={contact.id}
+                  timeout={500}
+                  classNames='animation'
+                >
+                  <ContactItem contact={contact} />
+                </CSSTransition>
+              ))
+            )
           ) : (
-            contacts.map((contact) => {
-              return <ContactItem key={contact.id} contact={contact} />;
-            })
-          )
-        ) : (
-          <h4>Please add contacts</h4>
-        )}
+            <h4
+              style={{
+                textAlign: 'center',
+                marginTop: '170px',
+                color: 'darkgreen',
+                fontWeight: '500',
+              }}
+            >
+              No contacts to display
+            </h4>
+          )}
+        </TransitionGroup>
       </div>
     </div>
   );

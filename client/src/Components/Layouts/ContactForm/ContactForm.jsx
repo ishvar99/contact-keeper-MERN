@@ -38,7 +38,7 @@ const ContactForm = () => {
   };
   return (
     <div className='contact-form'>
-      <h4 className='form-header'>Add a Contact</h4>
+      <h3 className='form-header'>Add a Contact</h3>
       <form onSubmit={onSubmit}>
         <input
           className='form-field'

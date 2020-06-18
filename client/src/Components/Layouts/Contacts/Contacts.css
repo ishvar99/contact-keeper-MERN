@@ -2,11 +2,12 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  margin-top: 20px;
   justify-content: space-around;
   width: 100%;
 }
 .contacts-form {
-  min-width: 450px;
+  min-width: 420px;
   width: 40%;
   height: 450px;
 }
