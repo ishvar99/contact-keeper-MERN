@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
-import { REGISTER_USER, LOGIN_USER, LOGOUT_USER } from '../types';
-import AuthReducer from './AuthReducers';
-import AuthContext from './AuthContext';
+import { SET_ALERT } from '../types';
+import AuthReducer from './AlertReducers';
+import AuthContext from './AlertContext';
 import axios from 'axios';
 const AuthState = (props) => {
   const intialState = {

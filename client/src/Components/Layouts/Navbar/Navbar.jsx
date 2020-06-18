@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ title, icon }) => {
   return (
@@ -23,14 +24,24 @@ const Navbar = ({ title, icon }) => {
       <div className='collapse navbar-collapse' id='navbarSupportedContent'>
         <ul className='navbar-nav ml-auto'>
           <li className='nav-item active'>
-            <a className='nav-link' href='/'>
+            <Link className='nav-link' to='/'>
               Home <span className='sr-only'>(current)</span>
-            </a>
+            </Link>
           </li>
           <li className='nav-item active'>
-            <a className='nav-link' href='/about'>
+            <Link className='nav-link' to='/about'>
               About
-            </a>
+            </Link>
+          </li>
+          <li className='nav-item active'>
+            <Link className='nav-link' to='/register'>
+              Register
+            </Link>
+          </li>
+          <li className='nav-item active'>
+            <Link className='nav-link' to='/login'>
+              Login
+            </Link>
           </li>
         </ul>
       </div>
