@@ -1,32 +1,26 @@
 import React, { useReducer } from 'react';
-import { SET_ALERT } from '../types';
-import AuthReducer from './AlertReducers';
-import AuthContext from './AlertContext';
-import axios from 'axios';
-const AuthState = (props) => {
+import { v4 as uuidv4 } from 'uuid';
+import { SET_ALERT, REMOVE_ALERT } from '../types';
+import AlertReducer from './AlertReducers';
+import AlertContext from './AlertContext';
+const AlertState = (props) => {
   const intialState = {
-    token: null,
+    alerts: [],
   };
 
-  const [state, dispatch] = useReducer(AuthReducer, intialState);
+  const [state, dispatch] = useReducer(AlertReducer, intialState);
 
-  const registerUser = async (formData) => {
-    const response = await axios.post(
-      '/api/auth/register',
-      JSON.stringify(formData),
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-    dispatch({ type: REGISTER_USER, payload: response.data.token });
+  const setAlerts = async (msg, type, timeout = 5000) => {
+    let id = uuidv4();
+    dispatch({ type: SET_ALERT, payload: { id, type, msg } });
+
+    setTimeout(dispatch({ type: REMOVE_ALERT, payload: id }), timeout);
   };
   return (
-    <AuthContext.Provider value={{ token: state.token, registerUser }}>
+    <AlertContext.Provider value={{ alerts: state.alerts, setAlerts }}>
       {props.children}
-    </AuthContext.Provider>
+    </AlertContext.Provider>
   );
 };
 
-export default AuthState;
+export default AlertState;

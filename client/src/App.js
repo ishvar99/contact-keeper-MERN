@@ -8,20 +8,23 @@ import AuthState from './context/Auth/AuthState';
 import Register from './Components/Pages/register';
 import Login from './Components/Pages/login';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import AlertState from './context/Alert/AlertState';
 
 const App = () => {
   return (
     <AuthState>
       <ContactState>
-        <Router>
-          <Navbar />
-          <Switch>
-            <Route exact path='/' component={Home}></Route>
-            <Route exact path='/about' component={About}></Route>
-            <Route exact path='/register' component={Register}></Route>
-            <Route exact path='/login' component={Login}></Route>
-          </Switch>
-        </Router>
+        <AlertState>
+          <Router>
+            <Navbar />
+            <Switch>
+              <Route exact path='/' component={Home}></Route>
+              <Route exact path='/about' component={About}></Route>
+              <Route exact path='/register' component={Register}></Route>
+              <Route exact path='/login' component={Login}></Route>
+            </Switch>
+          </Router>
+        </AlertState>
       </ContactState>
     </AuthState>
   );
