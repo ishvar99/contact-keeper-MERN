@@ -14,13 +14,19 @@ const Contacts = () => {
       </div>
       <div className='main'>
         <ContactFilter />
-        {filtered
-          ? filtered.map((contact) => {
+        {contacts.length > 0 ? (
+          filtered ? (
+            filtered.map((contact) => {
               return <ContactItem key={contact.id} contact={contact} />;
             })
-          : contacts.map((contact) => {
+          ) : (
+            contacts.map((contact) => {
               return <ContactItem key={contact.id} contact={contact} />;
-            })}
+            })
+          )
+        ) : (
+          <h4>Please add contacts</h4>
+        )}
       </div>
     </div>
   );
