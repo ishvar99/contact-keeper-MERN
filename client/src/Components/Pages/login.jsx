@@ -30,6 +30,7 @@ const Login = () => {
             className='form-control'
             aria-describedby='emailHelp'
             placeholder='Enter email'
+            required
           />
           <small className='form-text text-muted'>
             We'll never share your email with anyone else.
@@ -42,6 +43,7 @@ const Login = () => {
             type='password'
             className='form-control'
             placeholder='Password'
+            required
           />
         </div>
         <button

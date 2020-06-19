@@ -8,11 +8,17 @@ const Alerts = () => {
         context.alerts.map((alert) => {
           return (
             <div
+              style={{
+                width: '50%',
+                display: 'flex',
+                flexDirection: 'column',
+                margin: '20px auto',
+              }}
               key={alert.id}
               className={`alert alert-${alert.type}`}
               role='alert'
             >
-              {alert.msg}
+              <i className='fas fa-info-circle'> {alert.msg}</i>
             </div>
           );
         })}

@@ -36,6 +36,7 @@ const Register = () => {
             type='text'
             className='form-control'
             placeholder='Name'
+            required
           />
         </div>
         <div className='form-group'>
@@ -46,6 +47,7 @@ const Register = () => {
             className='form-control'
             aria-describedby='emailHelp'
             placeholder='Enter email'
+            required
           />
           <small className='form-text text-muted'>
             We'll never share your email with anyone else.
@@ -58,6 +60,7 @@ const Register = () => {
             type='password'
             className='form-control'
             placeholder='Password'
+            required
           />
         </div>
         <div className='form-group'>
@@ -67,6 +70,7 @@ const Register = () => {
             type='password'
             className='form-control'
             placeholder='Retype Password'
+            required
           />
         </div>
         <button
