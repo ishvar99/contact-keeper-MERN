@@ -1,12 +1,16 @@
-import { REGISTER_USER, LOGIN_USER, LOGOUT_USER } from '../types';
+import {
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  USER_LOADED,
+  AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+  CLEAR_ERRORS,
+} from '../types';
 
 export default (state, action) => {
   switch (action.type) {
-    case REGISTER_USER:
-      return {
-        ...state,
-        token: action.payload,
-      };
     default:
       return state;
   }
