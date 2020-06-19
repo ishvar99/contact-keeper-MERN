@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import AuthContext from '../../context/Auth/AuthContext';
 import AlertContext from '../../context/Alert/AlertContext';
-const Register = () => {
+const Register = (props) => {
   const context = useContext(AuthContext);
   const alertContext = useContext(AlertContext);
   const [name, setName] = useState('');
@@ -9,11 +9,15 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   useEffect(() => {
+    if (context.isAuthenticated) {
+      props.history.push('/');
+    }
     if (context.error == 'email already exists') {
       alertContext.setAlerts(context.error, 'danger');
       context.clearErrors();
     }
-  }, [context.error]);
+    // eslint-disable-next-line
+  }, [context.error, context.isAuthenticated, props.history]);
   const onSubmit = (e) => {
     e.preventDefault();
     if (password !== password2) {

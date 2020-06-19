@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import Contacts from '../Layouts/Contacts/Contacts';
+import AuthContext from '../../context/Auth/AuthContext';
 const Home = () => {
+  const context = useContext(AuthContext);
+  useEffect(() => {
+    context.loadUser();
+  }, []);
   return (
     <div>
       <Contacts />
