@@ -12,6 +12,7 @@ import {
 import AuthReducer from './AuthReducers';
 import AuthContext from './AuthContext';
 import axios from 'axios';
+import setAuthToken from '../../utils/setAuthToken';
 const AuthState = (props) => {
   const intialState = {
     token: localStorage.getItem('token'),
@@ -22,7 +23,17 @@ const AuthState = (props) => {
   };
 
   const [state, dispatch] = useReducer(AuthReducer, intialState);
-
+  const loadUser = async () => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+    try {
+      const response = await axios.get('/api/auth');
+      dispatch({ type: USER_LOADED, payload: response.data });
+    } catch (error) {
+      dispatch({ type: AUTH_ERROR, payload: error.response.data.err });
+    }
+  };
   const registerUser = async (formData) => {
     try {
       const response = await axios.post(
@@ -35,10 +46,14 @@ const AuthState = (props) => {
         }
       );
       dispatch({ type: REGISTER_SUCCESS, payload: response.data });
+      loadUser();
     } catch (err) {
-      console.log(err);
+      console.log(err.response);
       dispatch({ type: REGISTER_FAIL, payload: err.response.data.err });
     }
+  };
+  const clearErrors = () => {
+    dispatch({ type: CLEAR_ERRORS });
   };
   return (
     <AuthContext.Provider
@@ -48,6 +63,8 @@ const AuthState = (props) => {
         user: state.user,
         loading: state.loading,
         registerUser,
+        clearErrors,
+        loadUser,
         error: state.error,
       }}
     >

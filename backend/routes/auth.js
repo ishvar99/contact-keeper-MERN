@@ -60,7 +60,7 @@ router.post('/login', async (req, res) => {
 // @route  GET api/auth
 // @desc   get logged in user
 // @access PRIVATE
-router.get('/login', auth, async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user).select('-password');
     res.json(user);
