@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AlertState from './context/Alert/AlertState';
 import Alerts from './Components/Layouts/Alerts/Alerts.jsx';
 import setAuthToken from './utils/setAuthToken';
+import PrivateRoute from './Components/Routing/PrivateRoute';
 import NotFound from './Components/Pages/notFound';
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -24,7 +25,7 @@ const App = () => {
             <Navbar />
             <Alerts />
             <Switch>
-              <Route exact path='/' component={Home}></Route>
+              <PrivateRoute exact path='/' component={Home}></PrivateRoute>
               <Route exact path='/about' component={About}></Route>
               <Route exact path='/register' component={Register}></Route>
               <Route exact path='/login' component={Login}></Route>
