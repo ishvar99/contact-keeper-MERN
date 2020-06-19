@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import AuthContext from '../../context/Auth/AuthContext';
 import AlertContext from '../../context/Alert/AlertContext';
 const Register = () => {
@@ -8,6 +8,12 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
+  useEffect(() => {
+    if (context.error == 'email already exists') {
+      alertContext.setAlerts(context.error, 'danger');
+      context.clearErrors();
+    }
+  }, [context.error]);
   const onSubmit = (e) => {
     e.preventDefault();
     if (password !== password2) {
