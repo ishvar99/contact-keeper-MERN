@@ -1,14 +1,26 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import AuthContext from '../../context/Auth/AuthContext';
-const Login = () => {
+import AlertContext from '../../context/Alert/AlertContext';
+
+const Login = (props) => {
+  const alertContext = useContext(AlertContext);
   const context = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const onSubmit = (e) => {
     e.preventDefault();
-    context.registerUser({ email, password });
-    localStorage.setItem('token', context.token);
+    context.loginUser({ email, password });
   };
+  useEffect(() => {
+    if (context.isAuthenticated) {
+      props.history.push('/');
+    }
+    if (context.error == 'invalid credentials') {
+      alertContext.setAlerts(context.error, 'danger');
+      context.clearErrors();
+    }
+    // eslint-disable-next-line
+  }, [context.error, context.isAuthenticated, props.history]);
   return (
     <div style={{ width: '50%', margin: '100px auto' }}>
       <h2

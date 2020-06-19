@@ -52,8 +52,30 @@ const AuthState = (props) => {
       dispatch({ type: REGISTER_FAIL, payload: err.response.data.err });
     }
   };
+  const logout = () => {
+    dispatch({ type: LOGOUT });
+  };
   const clearErrors = () => {
     dispatch({ type: CLEAR_ERRORS });
+  };
+
+  const loginUser = async (formData) => {
+    try {
+      const response = await axios.post(
+        '/api/auth/login',
+        JSON.stringify(formData),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      dispatch({ type: LOGIN_SUCCESS, payload: response.data });
+      loadUser();
+    } catch (err) {
+      console.log(err.response);
+      dispatch({ type: LOGIN_FAIL, payload: err.response.data.err });
+    }
   };
   return (
     <AuthContext.Provider
@@ -64,7 +86,9 @@ const AuthState = (props) => {
         loading: state.loading,
         registerUser,
         clearErrors,
+        loginUser,
         loadUser,
+        logout,
         error: state.error,
       }}
     >
