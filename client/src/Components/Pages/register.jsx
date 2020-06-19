@@ -25,6 +25,7 @@ const Register = (props) => {
       return;
     }
     context.registerUser({ name, email, password });
+    alertContext.setAlerts('Successfully registered!', 'success');
   };
   return (
     <div style={{ width: '50%', margin: '100px auto' }}>

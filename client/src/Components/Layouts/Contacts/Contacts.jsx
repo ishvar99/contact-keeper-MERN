@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useContext, Fragment, useEffect } from 'react';
 import ContactContext from '../../../context/contact/contactContext';
 import ContactItem from './ContactItem';
 import ContactForm from '../ContactForm/ContactForm';
@@ -8,7 +8,10 @@ import './Contacts.css';
 import '../../../App.css';
 const Contacts = () => {
   const context = useContext(ContactContext);
-  const { contacts, filtered } = context;
+  const { contacts, filtered, getContacts } = context;
+  useEffect(() => {
+    getContacts();
+  }, []);
   return (
     <div className='main-container'>
       <div className='contacts-form'>
@@ -22,7 +25,7 @@ const Contacts = () => {
             filtered ? (
               filtered.map((contact) => (
                 <CSSTransition
-                  key={contact.id}
+                  key={contact._id}
                   timeout={700}
                   classNames='animation'
                 >
@@ -32,7 +35,7 @@ const Contacts = () => {
             ) : (
               contacts.map((contact) => (
                 <CSSTransition
-                  key={contact.id}
+                  key={contact._id}
                   timeout={500}
                   classNames='animation'
                 >

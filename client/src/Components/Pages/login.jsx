@@ -10,6 +10,7 @@ const Login = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
     context.loginUser({ email, password });
+    alertContext.setAlerts('Successfully logged In!', 'success');
   };
   useEffect(() => {
     if (context.isAuthenticated) {

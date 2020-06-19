@@ -27,7 +27,7 @@ const Navbar = ({ title, icon }) => {
     <Fragment>
       <li className='nav-item nav-link active'>Hello, {user && user.name}</li>
       <li className='nav-item active'>
-        <a onClick={signout} className='nav-link' href='/login'>
+        <a onClick={signout} className='nav-link'>
           <i className='fas fa-sign-out-alt '></i>
           <span> Logout</span>
         </a>
@@ -36,10 +36,10 @@ const Navbar = ({ title, icon }) => {
   );
   return (
     <nav className='navbar navbar-expand-sm navbar-dark bg-dark'>
-      <a className='navbar-brand mb-0 h1' href='#'>
+      <Link className='navbar-brand mb-0 h1' to='/'>
         <i className={icon}></i>
         <span className='ml-3'>{title}</span>
-      </a>
+      </Link>
       <button
         className='navbar-toggler'
         type='button'

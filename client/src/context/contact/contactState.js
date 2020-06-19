@@ -6,54 +6,48 @@ import {
   CLEAR_CURRENT,
   FILTER_CONTACTS,
   CLEAR_FILTER,
+  CONTACT_ERROR,
+  GET_CONTACTS,
+  CLEAR_CONTACTS,
 } from '../types.js';
 import React, { useReducer } from 'react';
 import ContactReducer from './contactReducers';
 import ContactContext from './contactContext';
+import setAuthToken from '../../utils/setAuthToken';
 import axios from 'axios';
 const ContactState = (props) => {
   const initialState = {
-    contacts: [
-      {
-        id: 1,
-        name: 'Ishan',
-        email: 'ishanvarshney99@gmail.com',
-        phone: '9205818212',
-        type: 'professional',
-      },
-      {
-        id: 2,
-        name: 'Himanshi',
-        email: 'himanshivarshney25@gmail.com',
-        phone: '7982500254',
-        type: 'personal',
-      },
-      {
-        id: 3,
-        name: 'Mamta',
-        email: 'mamtavarshney73@gmail.com',
-        phone: '9958213187',
-        type: 'personal',
-      },
-    ],
+    contacts: [],
     current: null,
     filtered: null,
+    error: null,
+    loading: true,
   };
   const [state, dispatch] = useReducer(ContactReducer, initialState);
+  const getContacts = async () => {
+    try {
+      const response = await axios.get('/api/contacts');
+      dispatch({ type: GET_CONTACTS, payload: response.data });
+    } catch (error) {
+      dispatch({ type: CONTACT_ERROR, payload: error.response.data.err });
+    }
+  };
+
   const addContact = async (formData) => {
-    // const response = await axios.post(
-    //   '/api/contacts',
-    //   JSON.stringify(formData),
-    //   {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'x-auth':
-    //         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZThlYWNmOWU2OGZhMmU5YzkyNTQxMSIsImlhdCI6MTU5MjMyMjc2OCwiZXhwIjoxNTkyMzI5OTY4fQ.hGB2PC7024e47qqKkMMH88CsvLm6hwb21wzCkOQZTPI',
-    //     },
-    //   }
-    // );
-    // console.log(response);
-    dispatch({ type: ADD_CONTACT, payload: formData });
+    try {
+      const response = await axios.post(
+        '/api/contacts',
+        JSON.stringify(formData),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      dispatch({ type: ADD_CONTACT, payload: response.data });
+    } catch (error) {
+      dispatch({ type: CONTACT_ERROR, payload: error.response.data.err });
+    }
   };
 
   const deleteContact = (id) => {
@@ -80,11 +74,14 @@ const ContactState = (props) => {
         contacts: state.contacts,
         current: state.current,
         filtered: state.filtered,
+        error: state.error,
+        loading: state.loading,
         addContact,
         deleteContact,
         setCurrent,
         clearCurrent,
         updateContact,
+        getContacts,
         filterContacts,
         clearFilter,
       }}

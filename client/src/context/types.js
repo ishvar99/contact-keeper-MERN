@@ -15,3 +15,6 @@ export const LOGIN_SUCCESS = 'login_success';
 export const LOGIN_FAIL = 'login_fail';
 export const LOGOUT = 'logout';
 export const CLEAR_ERRORS = 'clear_errors';
+export const CONTACT_ERROR = 'contact_error';
+export const GET_CONTACTS = 'get_contacts';
+export const CLEAR_CONTACTS = 'clear_contacts';
