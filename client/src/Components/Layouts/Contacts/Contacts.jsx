@@ -19,42 +19,47 @@ const Contacts = () => {
         <ContactForm />
       </div>
       <div className='main'>
-        {contacts != null && !loading ? null : <Spinner />}
-        {contacts.length > 0 ? (
-          <ContactFilter />
+        {contacts != null && !loading ? (
+          contacts.length > 0 ? (
+            <Fragment>
+              <ContactFilter />
+              <TransitionGroup>
+                {filtered
+                  ? filtered.map((contact) => (
+                      <CSSTransition
+                        key={contact._id}
+                        timeout={700}
+                        classNames='animation'
+                      >
+                        <ContactItem contact={contact} />
+                      </CSSTransition>
+                    ))
+                  : contacts.map((contact) => (
+                      <CSSTransition
+                        key={contact._id}
+                        timeout={500}
+                        classNames='animation'
+                      >
+                        <ContactItem contact={contact} />
+                      </CSSTransition>
+                    ))}
+              </TransitionGroup>
+            </Fragment>
+          ) : (
+            <h4
+              style={{
+                textAlign: 'center',
+                marginTop: '170px',
+                color: 'darkgreen',
+                fontWeight: '500',
+              }}
+            >
+              No contacts to display
+            </h4>
+          )
         ) : (
-          <h4
-            style={{
-              textAlign: 'center',
-              marginTop: '170px',
-              color: 'darkgreen',
-              fontWeight: '500',
-            }}
-          >
-            No contacts to display
-          </h4>
+          <Spinner />
         )}
-        <TransitionGroup>
-          {filtered
-            ? filtered.map((contact) => (
-                <CSSTransition
-                  key={contact._id}
-                  timeout={700}
-                  classNames='animation'
-                >
-                  <ContactItem contact={contact} />
-                </CSSTransition>
-              ))
-            : contacts.map((contact) => (
-                <CSSTransition
-                  key={contact._id}
-                  timeout={500}
-                  classNames='animation'
-                >
-                  <ContactItem contact={contact} />
-                </CSSTransition>
-              ))}
-        </TransitionGroup>
       </div>
     </div>
   );
