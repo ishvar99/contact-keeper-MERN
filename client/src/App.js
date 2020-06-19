@@ -9,6 +9,7 @@ import Register from './Components/Pages/register';
 import Login from './Components/Pages/login';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AlertState from './context/Alert/AlertState';
+import Alerts from './Components/Layouts/Alerts/Alerts.jsx';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <AlertState>
           <Router>
             <Navbar />
+            <Alerts />
             <Switch>
               <Route exact path='/' component={Home}></Route>
               <Route exact path='/about' component={About}></Route>

@@ -14,7 +14,7 @@ const AlertState = (props) => {
     let id = uuidv4();
     dispatch({ type: SET_ALERT, payload: { id, type, msg } });
 
-    setTimeout(dispatch({ type: REMOVE_ALERT, payload: id }), timeout);
+    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), timeout);
   };
   return (
     <AlertContext.Provider value={{ alerts: state.alerts, setAlerts }}>

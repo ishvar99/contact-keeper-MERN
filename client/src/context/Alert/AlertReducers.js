@@ -5,12 +5,12 @@ export default (state, action) => {
     case SET_ALERT:
       return {
         ...state,
-        alerts: [...state, action.payload],
+        alerts: [...state.alerts, action.payload],
       };
     case REMOVE_ALERT:
       return {
         ...state,
-        alerts: state.alerts.filter((alert) => alert.id !== action.payload.id),
+        alerts: state.alerts.filter((alert) => alert.id !== action.payload),
       };
     default:
       return state;

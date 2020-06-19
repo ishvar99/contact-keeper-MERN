@@ -1,14 +1,20 @@
 import React, { useContext, useState } from 'react';
 import AuthContext from '../../context/Auth/AuthContext';
+import AlertContext from '../../context/Alert/AlertContext';
 const Register = () => {
   const context = useContext(AuthContext);
+  const alertContext = useContext(AlertContext);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
   const onSubmit = (e) => {
     e.preventDefault();
+    if (password !== password2) {
+      alertContext.setAlerts("Password don't match!", 'danger');
+      return;
+    }
     context.registerUser({ name, email, password });
-    localStorage.setItem('token', context.token);
   };
   return (
     <div style={{ width: '50%', margin: '100px auto' }}>
@@ -52,6 +58,15 @@ const Register = () => {
             type='password'
             className='form-control'
             placeholder='Password'
+          />
+        </div>
+        <div className='form-group'>
+          <label>Confirm Password</label>
+          <input
+            onChange={(e) => setPassword2(e.target.value)}
+            type='password'
+            className='form-control'
+            placeholder='Retype Password'
           />
         </div>
         <button
